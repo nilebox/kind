@@ -90,6 +90,9 @@ func createControlPlaneNode(name, image, clusterLabel string) (handle *nodeHandl
 			// publish selected port for the API server
 			"--expose", fmt.Sprintf("%d", port),
 			"-p", fmt.Sprintf("%d:%d", port, port),
+			// publish a range of ports to be used for NodePort in services
+			"--expose", "30900-30999",
+			"-p", "30900-30999:30900-30999",
 			// explicitly set the entrypoint
 			"--entrypoint=/usr/local/bin/entrypoint",
 		},
